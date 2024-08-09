@@ -1,0 +1,11 @@
+---
+- name: Run Docker Compose to start the frontend application
+  command: docker-compose -f docker-compose.yml up -d
+  args:
+    chdir: /home/vagrant/yolo2
+
+- name: Wait for backend to be ready
+  wait_for:
+    host: "{{ ansible_default_ipv4.address }}"
+    port: 5000
+    timeout: 600

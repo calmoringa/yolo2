@@ -1,0 +1,6 @@
+---
+- name: Clone repository from GitHub
+  git:
+    repo: 'https://github.com/calmoringa/yolo2.git'
+    dest: /home/vagrant/yolo2
+    update: yes

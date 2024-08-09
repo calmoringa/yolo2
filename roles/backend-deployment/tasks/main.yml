@@ -1,16 +1,11 @@
 ---
-- name: Pull image from repository
-  docker_image:
-    name: brianbwire/brian-yolo-backend:v1.0.0
-    source: pull
+- name: Run Docker Compose to start the backend application
+  command: docker-compose -f docker-compose.yml up -d
+  args:
+    chdir: /home/vagrant/yolo2
 
-- name: Create Node.js Backend Container
-  docker_container:
-    name: brian-yolo-backend
-    image: brianbwire/brian-yolo-backend:v1.0.0
-    networks:
-      - name: app-net
-    ports:
-      - "5000:5000"
-    command: "npm start"
-  become: yes
+- name: Wait for backend to be ready
+  wait_for:
+    host: "{{ ansible_default_ipv4.address }}"
+    port: 5000
+    timeout: 600

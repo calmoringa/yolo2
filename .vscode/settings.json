@@ -1,6 +1,8 @@
 {
     "git.ignoreLimitWarning": true,
     "yaml.schemas": {
-        "kubernetes://schema/v1%40service": "file:///home/brayo/Desktop/Assignment2/yolo/frontend-deployment.yaml"
+        "file:///c%3A/Users/user/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
+        "kubernetes://schema/v1%40service": "file:///home/brayo/Desktop/Assignment2/yolo/frontend-deployment.yaml",
+        "https://raw.githubusercontent.com/architect/parser/v2.3.0/arc-schema.json": "file:///c%3A/Users/user/OneDrive/Desktop/yolo/playbook.yml"
     }
 }
