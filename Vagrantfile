@@ -8,8 +8,10 @@ Vagrant.configure("2") do |config|
 
   # Sync the current directory with the VM
   config.vm.synced_folder ".", "/vagrant"
-  config.vm.synced_folder "client", "/home/vagrant/client"
 
+  # Sync the client and backend directories to ensure Docker has access to them
+  config.vm.synced_folder "client", "/home/vagrant/client"
+  config.vm.synced_folder "backend", "/home/vagrant/backend"
 
   # Add a shell provisioner to install Docker and Docker Compose
   config.vm.provision "shell", inline: <<-SHELL
