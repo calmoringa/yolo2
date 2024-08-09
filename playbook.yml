@@ -1,0 +1,8 @@
+---
+- name: Deploy Docker application
+  hosts: all
+  become: yes
+  roles:
+    - frontend-deployment
+    - setup-mongodb
+    - backend-deployment
