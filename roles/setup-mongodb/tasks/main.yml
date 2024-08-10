@@ -2,7 +2,7 @@
 - name: Check if app-net network exists
   command: docker network inspect app-net
   register: network_check
-  ignore_errors: true
+  ignore_errors: yes
 
 - name: Create Docker network app-net
   docker_network:
