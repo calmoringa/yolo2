@@ -1,14 +1,14 @@
 ---
-# - name: Check if app-net network exists
-#   command: docker network inspect app-net
-#   register: network_check
-#   ignore_errors: yes
+- name: Check if app-net network exists
+  command: docker network inspect app-net
+  register: network_check
+  ignore_errors: true
 
 - name: Create Docker network app-net
   docker_network:
     name: app-net
     state: present
-  # when: network_check.failed
+  when: network_check.failed
 
 - name: Create Docker volume for MongoDB
   docker_volume:

@@ -17,4 +17,4 @@ services:
 
 networks:
   app-net:
-    external: true
+    external: false
