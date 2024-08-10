@@ -20,4 +20,3 @@ services:
 
 networks:
   app-net:
-    external: true
