@@ -9,9 +9,8 @@ Vagrant.configure("2") do |config|
   # Sync the current directory with the VM
   config.vm.synced_folder ".", "/vagrant"
 
-  # Sync the client and backend directories to ensure Docker has access to them
-  config.vm.synced_folder "client", "/home/vagrant/client"
-  config.vm.synced_folder "backend", "/home/vagrant/backend"
+  # Enable vbguest plugin to update Guest Additions
+  # config.vbguest.auto_update = true
 
   # Add a shell provisioner to install Docker and Docker Compose
   config.vm.provision "shell", inline: <<-SHELL
@@ -20,6 +19,10 @@ Vagrant.configure("2") do |config|
     sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    sudo apt-get update
+    sudo apt install net-tools -y
+    sudo apt-get update
+    sudo apt-get install -y chrony
     sudo apt-get update
     sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
