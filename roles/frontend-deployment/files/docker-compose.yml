@@ -13,8 +13,8 @@ services:
     depends_on:
       - calnexus-yolo-backend
     networks:
-      - app-net
+      - app-net2
 
 networks:
-  app-net:
+  app-net2:
     external: true
