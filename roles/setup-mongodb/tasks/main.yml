@@ -5,9 +5,7 @@
   ignore_errors: yes
 
 - name: Create Docker network app-net
-  docker_network:
-    name: app-net
-    state: present
+  command: docker network create app-net
   when: network_check.failed
 
 - name: Create Docker volume for MongoDB
