@@ -32,7 +32,6 @@ Vagrant.configure("2") do |config|
     # Install pip for Python 3 and Docker Compose
     sudo apt-get install -y python3-pip
     pip3 install docker-compose
-    sudo docker network rm app-net
   SHELL
 
   # Use Ansible local provisioning
