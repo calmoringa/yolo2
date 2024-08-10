@@ -14,10 +14,10 @@ services:
     depends_on:
       - app-ip-mongo
     networks:
-      - app-net2
+      - app-net
     environment:
       - MONGODB_URI=mongodb://app-ip-mongo:27017/yolomy
 
 networks:
-  app-net2:
+  app-net:
     external: true

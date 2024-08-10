@@ -6,7 +6,7 @@
 
 - name: Create Docker network app-net
   docker_network:
-    name: app-net2
+    name: app-net
     state: present
   # when: network_check.failed
 
@@ -26,4 +26,4 @@
     volumes:
       - app-mongo-data:/data/db
     networks:
-      - name: app-net2
+      - name: app-net
