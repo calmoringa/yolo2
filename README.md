@@ -65,8 +65,10 @@ The `roles/` directory contains individual roles for managing different aspects 
 3. **Start Vagrant**: Run `vagrant up` in the project directory. This will start the VM and provision it using Ansible.
 
 4. **Access the Application**: Once provisioning is complete, access the application via the specified ports:
-   - Frontend: `http://<vm-ip>:3000`
-   - Backend: `http://<vm-ip>:5000`
+   - Frontend: `http://192.168.100.99:3000`
+   - Backend: `http://192.168.100.99:5000`
+
+### Proof of work
 
 ### Conclusion
 
