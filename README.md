@@ -137,12 +137,16 @@ output "instance_ip" {
 2. **Plan and Apply Terraform**: Use `terraform plan` to review changes and `terraform apply` to deploy resources.
 3. **Start Vagrant**: Run `vagrant up` to start the VM and provision Ansible.
 4. **Run Ansible Playbook**: The playbook will execute as part of the Terraform local-exec provisioner.
-
+5. **Provision to aws**: ansible-playbook -i inventory playbook.yml
 ## Troubleshooting
 
 - **SSH Access**: Ensure the security group allows SSH from your IP address.
 - **Terraform Errors**: Check syntax and ensure correct paths for SSH keys.
 - **Ansible Playbook Errors**: Verify file paths and permissions.
+
+## AWS deployment 
+![Screenshot 5](screenshots/aws1.png)
+
 
 ## Conclusion
 
