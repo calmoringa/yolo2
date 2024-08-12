@@ -1,24 +1,17 @@
 ---
-- hosts: all
+- hosts: localhost
   become: true
   tasks:
-    - name: Ensure the target directory exists
-      file:
-        path: /home/vagrant
-        state: directory
-        owner: vagrant
-        mode: '0755'
-
-    - name: Copy docker-compose.yml to the instance
+    - name: Ensure Docker Compose file is present
       copy:
         src: ./docker-compose.yml
-        dest: /home/vagrant/docker-compose.yml
+        dest: /vagrant/docker-compose.yml
         owner: vagrant
         mode: '0644'
 
     - name: Run Docker Compose
       shell: |
-        cd /home/vagrant
-        docker-compose up -d
+        cd /vagrant
+        docker compose up -d
       args:
-        chdir: /home/vagrant
+        chdir: /vagrant
