@@ -2,71 +2,46 @@ provider "aws" {
   region = "eu-north-1"
 }
 
-resource "aws_key_pair" "deployer" {
-  key_name   = "deployer-key"
-  public_key = file("C:\Users\user\OneDrive\Desktop\ec2deploy.pem") 
-}
-
-resource "aws_instance" "app_server" {
+resource "aws_instance" "web" {
   ami           = "ami-04ac98afcd13fac1f"
   instance_type = "t3.nano"
-  key_name      = aws_key_pair.deployer.key_name
+  key_name      = "ec2deploy" # Updated to use your key pair
 
-  security_groups = [
-    aws_security_group.app_sg.name
-  ]
-
-  user_data = <<-EOF
-              #!/bin/bash
-              yum update -y
-              amazon-linux-extras install docker -y
-              service docker start
-              usermod -a -G docker ec2-user
-              curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-              chmod +x /usr/local/bin/docker-compose
-              EOF
+  # Network and Security
+  vpc_security_group_ids = ["sg-0c9d0d92cd590555d"]
+  subnet_id              = "subnet-05fad511a00c8dd42"
 
   tags = {
-    Name = "DockerServer"
+    Name = "Yolo"
+  }
+
+  # Use remote-exec to install Docker and Docker Compose
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum update -y",
+      "sudo yum install -y docker",
+      "sudo service docker start",
+      "sudo usermod -aG docker ec2-user",
+      "curl -L \"https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
+      "sudo chmod +x /usr/local/bin/docker-compose"
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = file("${path.module}/ec2deploy.pem")
+      host        = self.public_ip
+      timeout     = "2m"
+    }
+  }
+
+  # Use local-exec to run Ansible playbook
+  provisioner "local-exec" {
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i '${self.public_ip},' --private-key ${path.module}/ec2deploy.pem ansible/playbook.yml"
   }
 }
 
-resource "aws_security_group" "app_sg" {
-  name        = "app-sg"
-  description = "Allow SSH and HTTP"
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 5000
-    to_port     = 5000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+output "instance_ip" {
+  description = "The public IP address of the web server"
+  value       = aws_instance.web.public_ip
 }
