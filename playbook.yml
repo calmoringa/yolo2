@@ -1,9 +1,34 @@
 ---
-- name: Deploy Docker application
-  hosts: all
-  become: yes
-  roles:
-    - clone-repository
-    - setup-mongodb
-    - backend-deployment
-    - frontend-deployment
+- hosts: localhost
+  become: true
+  tasks:
+    - name: Update and install dependencies
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - git
+        - docker.io
+        - python3-pip
+
+    - name: Install Docker Compose
+      shell: |
+        curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m`" -o /usr/local/bin/docker-compose
+        chmod +x /usr/local/bin/docker-compose
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Clone application repository
+      git:
+        repo: 'https://github.com/calmoringa/yolo2.git'
+        dest: /home/vagrant/yolo
+
+    - name: Run Docker Compose
+      shell: |
+        cd /home/vagrant/yolo/yolo
+        docker-compose up -d
