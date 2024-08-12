@@ -13,5 +13,5 @@ Vagrant.configure("2") do |config|
   end
 
   # SSH access
-  config.vm.network "private_network", type: "dhcp"
+  # config.vm.network "private_network", type: "dhcp"
 end

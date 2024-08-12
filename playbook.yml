@@ -2,14 +2,21 @@
 - hosts: all
   become: true
   tasks:
+    - name: Ensure /home/ec2-user directory exists
+      file:
+        path: /home/ec2-user
+        state: directory
+        owner: ec2-user
+        mode: '0755'
+
     - name: Copy docker-compose.yml to the instance
       copy:
         src: ./docker-compose.yml
-        dest: /home/cal/docker-compose.yml
-        owner: cal
+        dest: /home/ec2-user/docker-compose.yml
+        owner: ec2-user
         mode: '0644'
 
     - name: Run Docker Compose
       shell: |
-        cd /home/cal
-        docker compose up -d
+        cd /home/ec2-user
+        docker-compose up -d
