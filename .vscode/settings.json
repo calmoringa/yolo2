@@ -3,6 +3,6 @@
     "yaml.schemas": {
         "file:///c%3A/Users/user/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
         "kubernetes://schema/v1%40service": "file:///home/brayo/Desktop/Assignment2/yolo/frontend-deployment.yaml",
-        "https://json.schemastore.org/projektor.json": "file:///c%3A/Users/user/OneDrive/Desktop/yolo/playbook.yml"
+        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/role-arg-spec.json": "file:///c%3A/Users/user/OneDrive/Desktop/yolo/playbook.yml"
     }
 }

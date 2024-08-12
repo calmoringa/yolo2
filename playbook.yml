@@ -2,21 +2,23 @@
 - hosts: all
   become: true
   tasks:
-    - name: Ensure /home/ec2-user directory exists
+    - name: Ensure the target directory exists
       file:
-        path: /home/ec2-user
+        path: /home/vagrant
         state: directory
-        owner: ec2-user
+        owner: vagrant
         mode: '0755'
 
     - name: Copy docker-compose.yml to the instance
       copy:
         src: ./docker-compose.yml
-        dest: /home/ec2-user/docker-compose.yml
-        owner: ec2-user
+        dest: /home/vagrant/docker-compose.yml
+        owner: vagrant
         mode: '0644'
 
     - name: Run Docker Compose
       shell: |
-        cd /home/ec2-user
+        cd /home/vagrant
         docker-compose up -d
+      args:
+        chdir: /home/vagrant
