@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   gcePersistentDisk:
-    pdName: your-disk-name
+    pdName: yolo-disk
     fsType: ext4
 
 ---
