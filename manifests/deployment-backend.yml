@@ -19,6 +19,9 @@ spec:
         image: unitybi/yolo:backend-v1.0.0
         ports:
         - containerPort: 8080
+        env:
+        - name: MONGO_URL
+          value: "mongodb://mongo-service:27017/yolo-db"
         resources:
           requests:
             memory: "512Mi"
