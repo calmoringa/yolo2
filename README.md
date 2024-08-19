@@ -99,9 +99,7 @@ Here is a Markdown file that documents the entire process of deploying your appl
 
 ---
 
-
 ![alt text](<screenshots/Screenshot 2024-08-18 at 17.12.19.png>) ![alt text](<screenshots/Screenshot 2024-08-18 at 17.12.57.png>) ![alt text](<screenshots/Screenshot 2024-08-18 at 17.13.26.png>) ![alt text](<screenshots/Screenshot 2024-08-18 at 17.13.42.png>) ![alt text](<screenshots/Screenshot 2024-08-18 at 17.13.57.png>) ![alt text](<screenshots/Screenshot 2024-08-18 at 17.15.29.png>)
-
 
 # GKE Deployment Documentation
 
@@ -258,6 +256,7 @@ kubectl apply -f manifests/deployment-frontend.yml
 - **MongoDB Pod:** Successfully running.
 - **Backend and Frontend Pods:** Resolved `ImagePullBackOff` errors by ensuring correct Docker images and registry access.
 - **Services:** Frontend service exposed via LoadBalancer with an external IP.
+- **External Ip:** <https://34.35.54.178>
 
 ## Final Verification
 
